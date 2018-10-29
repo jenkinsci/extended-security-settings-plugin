@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<div>
+    Provides extra paranoid security options for Jenkins.
+</div>
