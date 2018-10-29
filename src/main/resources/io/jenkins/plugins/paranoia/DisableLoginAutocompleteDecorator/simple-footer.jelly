@@ -24,7 +24,7 @@
   -->
 
 <j:jelly xmlns:j="jelly:core">
-    <j:if test="${it.disableLoginAutocomplete}">
+    <j:if test="${it.enabled}">
         <script>
             var password = document.querySelector("input[name='j_password']");
             password.setAttribute("autocomplete", "off");

@@ -36,6 +36,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <properties>
+        <!-- TODO: update to version integrating https://github.com/jenkinsci/jenkins/pull/3710 -->
         <jenkins.version>2.138.2</jenkins.version>
         <java.level>8</java.level>
     </properties>

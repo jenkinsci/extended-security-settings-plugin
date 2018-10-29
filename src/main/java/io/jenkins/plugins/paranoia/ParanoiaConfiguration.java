@@ -25,23 +25,24 @@
 package io.jenkins.plugins.paranoia;
 
 import hudson.Extension;
-import jenkins.model.GlobalConfigurationCategory;
-import jenkins.model.SimplePageDecorator;
-import net.sf.json.JSONObject;
+import jenkins.model.GlobalConfiguration;
+import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundSetter;
-import org.kohsuke.stapler.StaplerRequest;
 
-import javax.annotation.Nonnull;
-
-@Extension
 @Restricted(NoExternalUse.class)
-public class LoginPageConfiguration extends SimplePageDecorator {
+@Extension
+@Symbol("paranoia")
+public class ParanoiaConfiguration extends GlobalConfiguration {
+
+    public static ParanoiaConfiguration get() {
+        return GlobalConfiguration.all().get(ParanoiaConfiguration.class);
+    }
+
     private boolean disableLoginAutocomplete;
 
-    public LoginPageConfiguration() {
-        super();
+    public ParanoiaConfiguration() {
         load();
     }
 
@@ -53,22 +54,5 @@ public class LoginPageConfiguration extends SimplePageDecorator {
     public void setDisableLoginAutocomplete(boolean disableLoginAutocomplete) {
         this.disableLoginAutocomplete = disableLoginAutocomplete;
         save();
-    }
-
-    @Override
-    public @Nonnull String getDisplayName() {
-        return "Login Page Paranoia Configuration";
-    }
-
-    @Override
-    public @Nonnull GlobalConfigurationCategory getCategory() {
-        return GlobalConfigurationCategory.get(GlobalConfigurationCategory.Security.class);
-    }
-
-    @Override
-    public boolean configure(StaplerRequest req, JSONObject json) throws FormException {
-        req.bindJSON(this, json);
-        save();
-        return true;
     }
 }
