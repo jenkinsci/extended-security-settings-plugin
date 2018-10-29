@@ -26,10 +26,13 @@ package io.jenkins.plugins.paranoia;
 
 import hudson.Extension;
 import jenkins.model.GlobalConfiguration;
+import jenkins.model.GlobalConfigurationCategory;
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundSetter;
+
+import javax.annotation.Nonnull;
 
 @Restricted(NoExternalUse.class)
 @Extension
@@ -54,5 +57,10 @@ public class ParanoiaConfiguration extends GlobalConfiguration {
     public void setDisableLoginAutocomplete(boolean disableLoginAutocomplete) {
         this.disableLoginAutocomplete = disableLoginAutocomplete;
         save();
+    }
+
+    @Override
+    public @Nonnull GlobalConfigurationCategory getCategory() {
+        return GlobalConfigurationCategory.get(GlobalConfigurationCategory.Security.class);
     }
 }
