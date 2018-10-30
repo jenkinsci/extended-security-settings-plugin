@@ -26,9 +26,15 @@
 <j:jelly xmlns:j="jelly:core">
     <j:if test="${it.enabled}">
         <script>
-            (function() {
-                document.querySelector("input[name='j_password']").setAttribute("autocomplete", "off");
-            })()
+            function disableAutocomplete(id) {
+                const elem = document.getElementById(id);
+                if (elem !== null) {
+                    elem.setAttribute("autocomplete", "off");
+                }
+            }
+            disableAutocomplete('j_password');
+            disableAutocomplete('password1');
+            disableAutocomplete('password2');
         </script>
     </j:if>
 </j:jelly>
