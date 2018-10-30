@@ -25,3 +25,7 @@ hs_err_pid*
 # output directories
 work/
 target/
+
+# intellij
+.idea
+*.iml
