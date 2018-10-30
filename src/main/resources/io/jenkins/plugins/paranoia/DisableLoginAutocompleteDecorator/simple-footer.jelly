@@ -27,17 +27,9 @@
     <j:if test="${it.enabled}">
         <script>
             (function(){
-                function disableAutocomplete(id) {
-                    const elem = document.getElementById(id);
-                    if (elem !== null) {
-                        elem.setAttribute("autocomplete", "off");
-                    }
-                }
-                // for login page
-                disableAutocomplete('j_password');
-                // for signup page
-                disableAutocomplete('password1');
-                disableAutocomplete('password2');
+                document.querySelectorAll("input[type='password']").forEach(function(elem){
+                    elem.setAttribute("autocomplete", "off");
+                });
             })();
         </script>
     </j:if>
