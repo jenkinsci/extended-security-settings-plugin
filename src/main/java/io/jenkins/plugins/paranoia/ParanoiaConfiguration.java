@@ -43,7 +43,7 @@ public class ParanoiaConfiguration extends GlobalConfiguration {
         return GlobalConfiguration.all().get(ParanoiaConfiguration.class);
     }
 
-    private boolean disableLoginAutocomplete;
+    private boolean disableLoginAutocomplete = true;
 
     public ParanoiaConfiguration() {
         load();

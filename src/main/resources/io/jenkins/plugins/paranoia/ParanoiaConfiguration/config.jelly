@@ -25,8 +25,8 @@
 
 <j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
     <f:section title="Paranoia Settings">
-        <f:entry field="disableLoginAutocomplete" title="Disable login autocomplete">
-            <f:checkbox/>
+        <f:entry field="disableLoginAutocomplete">
+            <f:checkbox title="Disable login autocomplete"/>
         </f:entry>
     </f:section>
 </j:jelly>
