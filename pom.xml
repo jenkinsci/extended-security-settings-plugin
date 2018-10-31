@@ -52,9 +52,9 @@
     <!-- TODO: change this once hosted in jenkinsci organization -->
     <url>https://wiki.jenkins.io/display/JENKINS/Paranoia+Plugin</url>
     <scm>
-        <connection>scm:git:git://github.com/jvz/paranoia-plugin.git</connection>
-        <developerConnection>scm:git:git@github.com:jvz/paranoia-plugin.git</developerConnection>
-        <url>https://github.com/jvz/paranoia-plugin</url>
+        <connection>scm:git:git://github.com/jenkinsci/paranoia-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:jenkinsci/paranoia-plugin.git</developerConnection>
+        <url>https://github.com/jenkinsci/paranoia-plugin</url>
     </scm>
     <repositories>
         <repository>
