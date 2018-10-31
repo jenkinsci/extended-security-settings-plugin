@@ -49,7 +49,6 @@
             <url>https://opensource.org/licenses/MIT</url>
         </license>
     </licenses>
-    <!-- TODO: change this once hosted in jenkinsci organization -->
     <url>https://wiki.jenkins.io/display/JENKINS/Paranoia+Plugin</url>
     <scm>
         <connection>scm:git:git://github.com/jenkinsci/paranoia-plugin.git</connection>
