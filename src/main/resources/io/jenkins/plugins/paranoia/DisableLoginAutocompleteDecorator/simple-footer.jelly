@@ -27,9 +27,10 @@
     <j:if test="${it.enabled}">
         <script>
             (function(){
-                document.querySelectorAll("input[type='password']").forEach(function(elem){
-                    elem.setAttribute("autocomplete", "off");
-                });
+                var passwords = document.querySelectorAll("input[type='password']");
+                for (var i = 0; i &lt; passwords.length; i++) {
+                    passwords[i].setAttribute('autocomplete', 'off');
+                }
             })();
         </script>
     </j:if>
