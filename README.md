@@ -5,3 +5,8 @@
 Jenkins plugin to configure Paranoia Mode: a set of extra-paranoid security settings for Jenkins.
 
 Check out the [wiki page](https://wiki.jenkins.io/display/JENKINS/Paranoia+Plugin) for more information.
+
+## Known Issues
+
+This plugin will disable the default styling of the login and signup pages.
+This is currently being worked out over in [this pull request](https://github.com/jenkinsci/jenkins/pull/3710).
