@@ -30,7 +30,7 @@ import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
 @Restricted(NoExternalUse.class)
-@Extension
+@Extension(ordinal = -10000) // so we don't override the default header theme
 public class DisableLoginAutocompleteDecorator extends SimplePageDecorator {
     public boolean isEnabled() {
         return ParanoiaConfiguration.get().isDisableLoginAutocomplete();
