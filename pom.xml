@@ -37,8 +37,7 @@
     <properties>
         <revision>1.1</revision>
         <changelist>-SNAPSHOT</changelist>
-        <!-- TODO: update to version integrating https://github.com/jenkinsci/jenkins/pull/3721 -->
-        <jenkins.version>2.152-rc27519.f89df720cac2</jenkins.version>
+        <jenkins.version>2.156</jenkins.version>
         <java.level>8</java.level>
     </properties>
     <name>Paranoia Plugin</name>
