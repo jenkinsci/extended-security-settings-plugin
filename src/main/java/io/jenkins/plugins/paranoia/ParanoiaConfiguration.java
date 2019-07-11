@@ -45,6 +45,8 @@ public class ParanoiaConfiguration extends GlobalConfiguration {
 
     private boolean disableLoginAutocomplete = true;
 
+    private boolean enableXssProtectionHeader = true;
+
     public ParanoiaConfiguration() {
         load();
     }
@@ -56,6 +58,16 @@ public class ParanoiaConfiguration extends GlobalConfiguration {
     @DataBoundSetter
     public void setDisableLoginAutocomplete(boolean disableLoginAutocomplete) {
         this.disableLoginAutocomplete = disableLoginAutocomplete;
+        save();
+    }
+
+    public boolean isEnableXssProtectionHeader() {
+        return enableXssProtectionHeader;
+    }
+
+    @DataBoundSetter
+    public void setEnableXssProtectionHeader(boolean enableXssProtectionHeader) {
+        this.enableXssProtectionHeader = enableXssProtectionHeader;
         save();
     }
 
