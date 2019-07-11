@@ -18,4 +18,4 @@ Several web browsers (e.g., Firefox, Edge) do not support this header, though en
 
 ---
 
-Check out the [wiki page](https://wiki.jenkins.io/display/JENKINS/Paranoia+Plugin) for the changelog.
+Check out the [wiki page](https://wiki.jenkins.io/display/JENKINS/Extended+Security+Settings+Plugin) for the changelog.
