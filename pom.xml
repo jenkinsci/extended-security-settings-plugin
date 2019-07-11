@@ -40,15 +40,15 @@
         <jenkins.version>2.156</jenkins.version>
         <java.level>8</java.level>
     </properties>
-    <name>Paranoia Plugin</name>
-    <description>Provides extra paranoid security options for Jenkins.</description>
+    <name>Extended Security Settings Plugin</name>
+    <description>Provides extra security options for Jenkins.</description>
     <licenses>
         <license>
             <name>MIT License</name>
             <url>https://opensource.org/licenses/MIT</url>
         </license>
     </licenses>
-    <url>https://wiki.jenkins.io/display/JENKINS/Paranoia+Plugin</url>
+    <url>https://wiki.jenkins.io/display/JENKINS/Extended+Security+Settings+Plugin</url>
     <scm>
         <connection>scm:git:git://github.com/jenkinsci/paranoia-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/paranoia-plugin.git</developerConnection>

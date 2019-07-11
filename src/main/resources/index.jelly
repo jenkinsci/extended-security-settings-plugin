@@ -2,7 +2,7 @@
 <!--
   ~ The MIT License
   ~
-  ~ Copyright (c) 2018 CloudBees, Inc.
+  ~ Copyright (c) 2018-2019 CloudBees, Inc.
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -24,5 +24,6 @@
   -->
 
 <div>
-    Provides extra paranoid security options for Jenkins.
+    Provides extended security settings for Jenkins. These are provided as additional hardening measures for users
+    who desire improve their standing with automated security scanners.
 </div>
