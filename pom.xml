@@ -31,11 +31,12 @@
         <version>3.47</version>
         <relativePath />
     </parent>
-    <artifactId>paranoia</artifactId>
+    <groupId>io.jenkins.plugins</groupId>
+    <artifactId>extended-security-settings</artifactId>
     <version>${revision}${changelist}</version>
     <packaging>hpi</packaging>
     <properties>
-        <revision>1.2</revision>
+        <revision>1.0</revision>
         <changelist>-SNAPSHOT</changelist>
         <jenkins.version>2.156</jenkins.version>
         <java.level>8</java.level>
@@ -50,9 +51,9 @@
     </licenses>
     <url>https://wiki.jenkins.io/display/JENKINS/Extended+Security+Settings+Plugin</url>
     <scm>
-        <connection>scm:git:git://github.com/jenkinsci/paranoia-plugin.git</connection>
-        <developerConnection>scm:git:git@github.com:jenkinsci/paranoia-plugin.git</developerConnection>
-        <url>https://github.com/jenkinsci/paranoia-plugin</url>
+        <connection>scm:git:git://github.com/jenkinsci/extended-security-settings-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:jenkinsci/extended-security-settings-plugin.git</developerConnection>
+        <url>https://github.com/jenkinsci/extended-security-settings-plugin</url>
       <tag>HEAD</tag>
   </scm>
     <repositories>
