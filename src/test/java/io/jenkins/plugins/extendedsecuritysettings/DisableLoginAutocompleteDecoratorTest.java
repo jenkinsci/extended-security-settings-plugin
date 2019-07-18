@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package io.jenkins.plugins.paranoia;
+package io.jenkins.plugins.extendedsecuritysettings;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
@@ -52,7 +52,7 @@ public class DisableLoginAutocompleteDecoratorTest {
 
     @Test
     public void loginPageIsNotModified_whenDisabled() throws Exception {
-        ParanoiaConfiguration.get().setDisableLoginAutocomplete(false);
+        ExtendedSecuritySettings.get().setDisableLoginAutocomplete(false);
         
         j.jenkins.setSecurityRealm(new HudsonPrivateSecurityRealm(false, false, null));
         JenkinsRule.WebClient wc = j.createWebClient();

@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package io.jenkins.plugins.paranoia;
+package io.jenkins.plugins.extendedsecuritysettings;
 
 import hudson.Extension;
 import hudson.model.PageDecorator;
@@ -33,6 +33,6 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 @Restricted(NoExternalUse.class)
 public class XSSProtectionHeaderPageDecorator extends PageDecorator {
     public boolean isEnabled() {
-        return ParanoiaConfiguration.get().isEnableXssProtectionHeader();
+        return ExtendedSecuritySettings.get().isEnableXssProtectionHeader();
     }
 }

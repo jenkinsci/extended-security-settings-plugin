@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package io.jenkins.plugins.paranoia;
+package io.jenkins.plugins.extendedsecuritysettings;
 
 import hudson.Extension;
 import jenkins.model.SimplePageDecorator;
@@ -33,6 +33,6 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 @Extension(ordinal = -10000) // so we don't override the default header theme
 public class DisableLoginAutocompleteDecorator extends SimplePageDecorator {
     public boolean isEnabled() {
-        return ParanoiaConfiguration.get().isDisableLoginAutocomplete();
+        return ExtendedSecuritySettings.get().isDisableLoginAutocomplete();
     }
 }

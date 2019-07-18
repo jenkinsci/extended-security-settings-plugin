@@ -1,6 +1,6 @@
 # Extended Security Settings for Jenkins
 
-[![Build Status](https://ci.jenkins.io/buildStatus/icon?job=Plugins/paranoia-plugin/master)](https://ci.jenkins.io/job/Plugins/job/paranoia-plugin/job/master/)
+[![Build Status](https://ci.jenkins.io/buildStatus/icon?job=Plugins/extended-security-settings-plugin/master)](https://ci.jenkins.io/job/Plugins/job/extended-security-settings-plugin/job/master/)
 
 Jenkins plugin to configure Extended Security Settings: a set of additional security settings requested by security scanning robots for Jenkins.
 

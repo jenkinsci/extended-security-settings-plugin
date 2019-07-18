@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package io.jenkins.plugins.paranoia;
+package io.jenkins.plugins.extendedsecuritysettings;
 
 import com.gargoylesoftware.htmlunit.WebResponse;
 import org.junit.Rule;
@@ -46,12 +46,12 @@ public class XSSProtectionHeaderPageDecoratorTest {
 
     @Test
     public void shouldNotHaveXSSProtectionHeaderWhenDisabled() throws IOException, SAXException {
-        ParanoiaConfiguration.get().setEnableXssProtectionHeader(false);
+        ExtendedSecuritySettings.get().setEnableXssProtectionHeader(false);
         try {
             final WebResponse response = j.createWebClient().goTo("").getWebResponse();
             assertNull(response.getResponseHeaderValue("X-XSS-Protection"));
         } finally {
-            ParanoiaConfiguration.get().setEnableXssProtectionHeader(true);
+            ExtendedSecuritySettings.get().setEnableXssProtectionHeader(true);
         }
     }
 }

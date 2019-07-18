@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package io.jenkins.plugins.paranoia;
+package io.jenkins.plugins.extendedsecuritysettings;
 
 import hudson.Extension;
 import jenkins.model.GlobalConfiguration;
@@ -36,18 +36,18 @@ import javax.annotation.Nonnull;
 
 @Restricted(NoExternalUse.class)
 @Extension
-@Symbol("paranoia")
-public class ParanoiaConfiguration extends GlobalConfiguration {
+@Symbol("extendedSecuritySettings")
+public class ExtendedSecuritySettings extends GlobalConfiguration {
 
-    public static ParanoiaConfiguration get() {
-        return GlobalConfiguration.all().get(ParanoiaConfiguration.class);
+    public static ExtendedSecuritySettings get() {
+        return GlobalConfiguration.all().get(ExtendedSecuritySettings.class);
     }
 
     private boolean disableLoginAutocomplete = true;
 
     private boolean enableXssProtectionHeader = true;
 
-    public ParanoiaConfiguration() {
+    public ExtendedSecuritySettings() {
         load();
     }
 
