@@ -13,8 +13,8 @@ See [Choosing Secure Passwords](https://www.schneier.com/blog/archives/2014/03/c
 
 ## Enable X-XSS-Protection Header
 
-This feature enables the HTTP header `X-XSS-Protection: 1; mode=block` to be sent on all requests which some web browsers support as a way to automatically block suspected cross-site scripting attacks.
-Several web browsers (e.g., Firefox, Edge) do not support this header, though enabling it may still help mitigate unknown XSS issues in browsers that do support it.
+This feature enables the HTTP header `X-XSS-Protection: 1; mode=block` to be sent on all requests which some web browsers intend as a way to automatically block suspected cross-site scripting attacks.
+Several web browsers (e.g., Firefox, Edge, and Chrome) do not support this header.
 
 ---
 

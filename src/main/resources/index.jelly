@@ -24,6 +24,6 @@
   -->
 
 <div>
-    Provides extended security settings for Jenkins. These are provided as additional hardening measures for users
-    who desire improve their standing with automated security scanners.
+    Provides extended security settings for Jenkins. These are provided as additional settings for users
+    who desire to improve compliance with some automated security scanners.
 </div>
