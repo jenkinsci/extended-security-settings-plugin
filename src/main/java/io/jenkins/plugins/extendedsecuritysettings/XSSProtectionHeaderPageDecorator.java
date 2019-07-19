@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright (c) 2018 CloudBees, Inc.
+ * Copyright (c) 2019 CloudBees, Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,17 +22,17 @@
  * THE SOFTWARE.
  */
 
-package io.jenkins.plugins.paranoia;
+package io.jenkins.plugins.extendedsecuritysettings;
 
 import hudson.Extension;
-import jenkins.model.SimplePageDecorator;
+import hudson.model.PageDecorator;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
+@Extension
 @Restricted(NoExternalUse.class)
-@Extension(ordinal = -10000) // so we don't override the default header theme
-public class DisableLoginAutocompleteDecorator extends SimplePageDecorator {
+public class XSSProtectionHeaderPageDecorator extends PageDecorator {
     public boolean isEnabled() {
-        return ParanoiaConfiguration.get().isDisableLoginAutocomplete();
+        return ExtendedSecuritySettings.get().isEnableXssProtectionHeader();
     }
 }

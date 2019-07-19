@@ -2,7 +2,7 @@
 <!--
   ~ The MIT License
   ~
-  ~ Copyright (c) 2018 CloudBees, Inc.
+  ~ Copyright (c) 2019 CloudBees, Inc.
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -23,10 +23,8 @@
   ~ THE SOFTWARE.
   -->
 
-<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
-    <f:section title="Paranoia Settings">
-        <f:entry field="disableLoginAutocomplete">
-            <f:checkbox title="Disable login autocomplete"/>
-        </f:entry>
-    </f:section>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler">
+    <j:if test="${it.enabled}">
+        <st:header name="X-XSS-Protection" value="1; mode=block"/>
+    </j:if>
 </j:jelly>

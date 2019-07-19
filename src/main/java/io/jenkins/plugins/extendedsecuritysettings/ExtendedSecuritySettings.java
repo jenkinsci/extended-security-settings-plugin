@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright (c) 2018 CloudBees, Inc.
+ * Copyright (c) 2018-2019 CloudBees, Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package io.jenkins.plugins.paranoia;
+package io.jenkins.plugins.extendedsecuritysettings;
 
 import hudson.Extension;
 import jenkins.model.GlobalConfiguration;
@@ -36,16 +36,18 @@ import javax.annotation.Nonnull;
 
 @Restricted(NoExternalUse.class)
 @Extension
-@Symbol("paranoia")
-public class ParanoiaConfiguration extends GlobalConfiguration {
+@Symbol("extendedSecuritySettings")
+public class ExtendedSecuritySettings extends GlobalConfiguration {
 
-    public static ParanoiaConfiguration get() {
-        return GlobalConfiguration.all().get(ParanoiaConfiguration.class);
+    public static ExtendedSecuritySettings get() {
+        return GlobalConfiguration.all().get(ExtendedSecuritySettings.class);
     }
 
     private boolean disableLoginAutocomplete = true;
 
-    public ParanoiaConfiguration() {
+    private boolean enableXssProtectionHeader = true;
+
+    public ExtendedSecuritySettings() {
         load();
     }
 
@@ -56,6 +58,16 @@ public class ParanoiaConfiguration extends GlobalConfiguration {
     @DataBoundSetter
     public void setDisableLoginAutocomplete(boolean disableLoginAutocomplete) {
         this.disableLoginAutocomplete = disableLoginAutocomplete;
+        save();
+    }
+
+    public boolean isEnableXssProtectionHeader() {
+        return enableXssProtectionHeader;
+    }
+
+    @DataBoundSetter
+    public void setEnableXssProtectionHeader(boolean enableXssProtectionHeader) {
+        this.enableXssProtectionHeader = enableXssProtectionHeader;
         save();
     }
 
