@@ -16,6 +16,12 @@ See [Choosing Secure Passwords](https://www.schneier.com/blog/archives/2014/03/c
 This feature enables the HTTP header `X-XSS-Protection: 1; mode=block` to be sent on all requests which some web browsers intend as a way to automatically block suspected cross-site scripting attacks.
 Several web browsers (e.g., Firefox, Edge, and Chrome) do not support this header.
 
+## Require Overall/Read for X-Jenkins Header
+
+This feature adds a permission check for `Overall/Read` in order to see the Jenkins version in the `X-Jenkins` HTTP header.
+Various security scanning tools recommend hiding version information advertised this way.
+Note there are numerous other ways to fingerprint Jenkins to deduce which version is running even when this feature is enabled.
+
 ---
 
 Check out the [wiki page](https://wiki.jenkins.io/display/JENKINS/Extended+Security+Settings+Plugin) for the changelog.

@@ -33,19 +33,23 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundSetter;
 
 import javax.annotation.Nonnull;
+import java.util.Objects;
 
 @Restricted(NoExternalUse.class)
 @Extension
 @Symbol("extendedSecuritySettings")
 public class ExtendedSecuritySettings extends GlobalConfiguration {
 
-    public static ExtendedSecuritySettings get() {
-        return GlobalConfiguration.all().get(ExtendedSecuritySettings.class);
+    public static @Nonnull ExtendedSecuritySettings get() {
+        return Objects.requireNonNull(GlobalConfiguration.all().get(ExtendedSecuritySettings.class),
+                "Cannot locate ExtendedSecuritySettings this early in Jenkins startup");
     }
 
     private boolean disableLoginAutocomplete = true;
 
     private boolean enableXssProtectionHeader = true;
+
+    private boolean disableXJenkinsHeaderUnlessAuthorized = true;
 
     public ExtendedSecuritySettings() {
         load();
@@ -69,6 +73,15 @@ public class ExtendedSecuritySettings extends GlobalConfiguration {
     public void setEnableXssProtectionHeader(boolean enableXssProtectionHeader) {
         this.enableXssProtectionHeader = enableXssProtectionHeader;
         save();
+    }
+
+    public boolean isDisableXJenkinsHeaderUnlessAuthorized() {
+        return disableXJenkinsHeaderUnlessAuthorized;
+    }
+
+    @DataBoundSetter
+    public void setDisableXJenkinsHeaderUnlessAuthorized(boolean disableXJenkinsHeaderUnlessAuthorized) {
+        this.disableXJenkinsHeaderUnlessAuthorized = disableXJenkinsHeaderUnlessAuthorized;
     }
 
     @Override
