@@ -33,7 +33,6 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundSetter;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
 
 @Restricted(NoExternalUse.class)
 @Extension
@@ -41,8 +40,11 @@ import java.util.Objects;
 public class ExtendedSecuritySettings extends GlobalConfiguration {
 
     public static @Nonnull ExtendedSecuritySettings get() {
-        return Objects.requireNonNull(GlobalConfiguration.all().get(ExtendedSecuritySettings.class),
-                "Cannot locate ExtendedSecuritySettings this early in Jenkins startup");
+        ExtendedSecuritySettings settings = GlobalConfiguration.all().get(ExtendedSecuritySettings.class);
+        if (settings == null) {
+            throw new IllegalStateException("Jenkins is not available");
+        }
+        return settings;
     }
 
     private boolean disableLoginAutocomplete = true;
