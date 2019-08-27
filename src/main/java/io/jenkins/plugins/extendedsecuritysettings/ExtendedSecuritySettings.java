@@ -32,7 +32,10 @@ import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundSetter;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Restricted(NoExternalUse.class)
 @Extension
@@ -51,7 +54,7 @@ public class ExtendedSecuritySettings extends GlobalConfiguration {
 
     private boolean enableXssProtectionHeader = true;
 
-    private boolean disableXJenkinsHeaderUnlessAuthorized = true;
+    private Set<HttpHeaderFilter> httpHeaderFilters;
 
     public ExtendedSecuritySettings() {
         load();
@@ -77,13 +80,14 @@ public class ExtendedSecuritySettings extends GlobalConfiguration {
         save();
     }
 
-    public boolean isDisableXJenkinsHeaderUnlessAuthorized() {
-        return disableXJenkinsHeaderUnlessAuthorized;
+    public @CheckForNull Set<HttpHeaderFilter> getHttpHeaderFilters() {
+        return httpHeaderFilters;
     }
 
     @DataBoundSetter
-    public void setDisableXJenkinsHeaderUnlessAuthorized(boolean disableXJenkinsHeaderUnlessAuthorized) {
-        this.disableXJenkinsHeaderUnlessAuthorized = disableXJenkinsHeaderUnlessAuthorized;
+    public void setHttpHeaderFilters(@CheckForNull  Set<HttpHeaderFilter> httpHeaderFilters) {
+        this.httpHeaderFilters = httpHeaderFilters == null ? null : new HashSet<>(httpHeaderFilters);
+        save();
     }
 
     @Override

@@ -30,6 +30,7 @@ import jenkins.model.Jenkins;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
+import javax.annotation.Nonnull;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -41,14 +42,16 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Locale;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Restricted(NoExternalUse.class)
-public class JenkinsVersionHeaderFilter implements Filter {
+public class HttpHeadersFilter implements Filter {
 
     @Initializer
     public static void initialize() throws ServletException {
-        PluginServletFilter.addFilter(new JenkinsVersionHeaderFilter());
+        PluginServletFilter.addFilter(new HttpHeadersFilter());
     }
 
     @Override
@@ -61,59 +64,81 @@ public class JenkinsVersionHeaderFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        ServletResponse rsp = isEnabled() ? new HeaderRemovingResponseWrapper((HttpServletResponse) response) : response;
-        chain.doFilter(request, rsp);
+        ServletResponse wrappedResponse = response;
+        if (isFilterableResponse(response) && !hasOverallRead()) {
+            Set<String> headerNames = getFilteredHeaderNames();
+            if (!headerNames.isEmpty()) {
+                wrappedResponse = new HeaderRemovingResponseWrapper((HttpServletResponse) response, headerNames);
+            }
+        }
+        chain.doFilter(request, wrappedResponse);
     }
 
-    private boolean isEnabled() {
-        final Jenkins jenkins = Jenkins.getInstanceOrNull();
-        return jenkins != null && ExtendedSecuritySettings.get().isDisableXJenkinsHeaderUnlessAuthorized() &&
-                !jenkins.hasPermission(Jenkins.READ);
+    private static boolean isFilterableResponse(@Nonnull ServletResponse response) {
+        return response instanceof HttpServletResponse && !response.isCommitted();
+    }
+
+    private static boolean hasOverallRead() {
+        Jenkins jenkins = Jenkins.getInstanceOrNull();
+        return jenkins != null && jenkins.hasPermission(Jenkins.READ);
+    }
+
+    private static @Nonnull Set<String> getFilteredHeaderNames() {
+        Set<HttpHeaderFilter> filters = ExtendedSecuritySettings.get().getHttpHeaderFilters();
+        if (filters == null || filters.isEmpty()) {
+            return Collections.emptySet();
+        }
+        return filters.stream()
+                .map(filter -> filter.getHeaderName().toLowerCase(Locale.ENGLISH))
+                .collect(Collectors.toSet());
     }
 
     private static class HeaderRemovingResponseWrapper extends HttpServletResponseWrapper {
 
-        private static final String HEADER_NAME = "X-Jenkins";
+        private final Set<String> headerNames;
 
-        private HeaderRemovingResponseWrapper(HttpServletResponse response) {
+        private HeaderRemovingResponseWrapper(@Nonnull HttpServletResponse response, @Nonnull Set<String> headerNames) {
             super(response);
-            response.setHeader(HEADER_NAME, null);
+            this.headerNames = headerNames;
+            headerNames.forEach(headerName -> response.setHeader(headerName, null));
+        }
+
+        private boolean isHeaderAllowed(@Nonnull String headerName) {
+            return !headerNames.contains(headerName.toLowerCase(Locale.ENGLISH));
         }
 
         @Override
         public boolean containsHeader(String name) {
-            return !HEADER_NAME.equalsIgnoreCase(name) && super.containsHeader(name);
+            return isHeaderAllowed(name) && super.containsHeader(name);
         }
 
         @Override
         public void setHeader(String name, String value) {
-            if (!HEADER_NAME.equalsIgnoreCase(name)) {
+            if (isHeaderAllowed(name)) {
                 super.setHeader(name, value);
             }
         }
 
         @Override
         public void addHeader(String name, String value) {
-            if (!HEADER_NAME.equalsIgnoreCase(name)) {
+            if (isHeaderAllowed(name)) {
                 super.addHeader(name, value);
             }
         }
 
         @Override
         public String getHeader(String name) {
-            return HEADER_NAME.equalsIgnoreCase(name) ? null : super.getHeader(name);
+            return isHeaderAllowed(name) ? super.getHeader(name) : null;
         }
 
         @Override
         public Collection<String> getHeaders(String name) {
-            return HEADER_NAME.equalsIgnoreCase(name) ? Collections.emptySet() : super.getHeaders(name);
+            return isHeaderAllowed(name) ? super.getHeaders(name) : Collections.emptySet();
         }
 
         @Override
         public Collection<String> getHeaderNames() {
-            return super.getHeaderNames().stream()
-                    .filter(headerName -> !HEADER_NAME.equalsIgnoreCase(headerName))
-                    .collect(Collectors.toSet());
+            return super.getHeaderNames().stream().filter(this::isHeaderAllowed).collect(Collectors.toSet());
         }
     }
 }

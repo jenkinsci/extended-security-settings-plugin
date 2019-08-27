@@ -26,43 +26,52 @@ package io.jenkins.plugins.extendedsecuritysettings;
 
 import com.gargoylesoftware.htmlunit.WebResponse;
 import jenkins.model.Jenkins;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.jvnet.hudson.test.MockAuthorizationStrategy;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class JenkinsVersionHeaderFilterTest {
+public class HttpHeadersFilterTest {
 
     public @Rule JenkinsRule j = new JenkinsRule();
+    private Set<HttpHeaderFilter> previousFilters;
 
     @Before
     public void setUp() {
         j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
         j.jenkins.setAuthorizationStrategy(new MockAuthorizationStrategy().grant(Jenkins.READ).everywhere().to("admin"));
+        previousFilters = ExtendedSecuritySettings.get().getHttpHeaderFilters();
+    }
+
+    @After
+    public void tearDown() {
+        ExtendedSecuritySettings.get().setHttpHeaderFilters(previousFilters);
+        previousFilters = null;
     }
 
     @Test
-    public void shouldDisableXJenkinsHeaderUnlessAuthorizedByDefault() throws Exception {
+    public void shouldFilterHeadersWhenUnauthorized() throws Exception {
+        setHttpHeaderNamesToFilter("x-jenkins", "x-hudson");
         WebResponse response = j.createWebClient().withThrowExceptionOnFailingStatusCode(false).goTo("").getWebResponse();
         assertNull(response.getResponseHeaderValue("X-Jenkins"));
+        assertNull(response.getResponseHeaderValue("X-Hudson"));
 
         response = j.createWebClient().login("admin").goTo("").getWebResponse();
-        assertEquals(Jenkins.VERSION, response.getResponseHeaderValue("X-Jenkins"));
+        assertEquals(Jenkins.VERSION, response.getResponseHeaderValue("x-jenkins"));
     }
 
-    @Test
-    public void shouldStillAdvertiseXJenkinsHeaderWhenDisabled() throws Exception {
-        ExtendedSecuritySettings.get().setDisableXJenkinsHeaderUnlessAuthorized(false);
-        try {
-            WebResponse response = j.createWebClient().withThrowExceptionOnFailingStatusCode(false).goTo("").getWebResponse();
-            assertEquals(Jenkins.VERSION, response.getResponseHeaderValue("X-Jenkins"));
-        } finally {
-            ExtendedSecuritySettings.get().setDisableXJenkinsHeaderUnlessAuthorized(true);
-        }
+    private static void setHttpHeaderNamesToFilter(String... headerNames) {
+        ExtendedSecuritySettings.get().setHttpHeaderFilters(
+                Arrays.stream(headerNames).map(HttpHeaderFilter::new).collect(Collectors.toSet()));
     }
 
 }

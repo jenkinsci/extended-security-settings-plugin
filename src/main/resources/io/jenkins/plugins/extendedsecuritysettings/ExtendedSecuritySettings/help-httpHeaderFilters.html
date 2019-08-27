@@ -1,8 +1,7 @@
-<?jelly escape-by-default='true'?>
 <!--
   ~ The MIT License
   ~
-  ~ Copyright (c) 2018-2019 CloudBees, Inc.
+  ~ Copyright (c) 2019 CloudBees, Inc.
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -23,17 +22,14 @@
   ~ THE SOFTWARE.
   -->
 
-<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
-    <f:section title="${%configurationSectionTitle}">
-        <f:entry field="disableLoginAutocomplete">
-            <f:checkbox title="${%disableLoginAutocomplete}"/>
-        </f:entry>
-        <f:entry field="enableXssProtectionHeader">
-            <f:checkbox title="${%enableXssProtectionHeader}"/>
-        </f:entry>
-        <f:entry title="${%httpHeaderFilters}" help="${descriptor.getHelpFile('httpHeaderFilters')}">
-            <f:repeatableProperty field="httpHeaderFilters" add="${%addFilter}"
-                                  default="${descriptor.getPropertyType('httpHeaderFilters').itemTypeDescriptorOrDie.defaults}"/>
-        </f:entry>
-    </f:section>
-</j:jelly>
+<div>
+    Configure a set of HTTP header names to filter out from unauthorized responses.
+    Header names are <em>case-insensitive.</em>
+    Users lacking the <i>Overall/Read</i> permission will have these headers filtered from HTTP responses.
+    Example headers that can be filtered include:
+    <ul>
+        <li><kbd>X-Jenkins</kbd></li>
+        <li><kbd>X-Hudson</kbd></li>
+        <li><kbd>Server</kbd></li>
+    </ul>
+</div>

@@ -1,3 +1,4 @@
+<?jelly escape-by-default='true'?>
 <!--
   ~ The MIT License
   ~
@@ -22,8 +23,11 @@
   ~ THE SOFTWARE.
   -->
 
-<div>
-    When enabled, this removes the <code>X-Jenkins</code> HTTP header from responses that are not authorized
-    with the <i>Overall/Read</i> permission. Note that there are numerous other ways to fingerprint Jenkins to
-    deduce the version running.
-</div>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+  <f:entry field="headerName">
+    <f:textbox/>
+    <div align="right">
+      <f:repeatableDeleteButton value="${%removeFilter}"/>
+    </div>
+  </f:entry>
+</j:jelly>
