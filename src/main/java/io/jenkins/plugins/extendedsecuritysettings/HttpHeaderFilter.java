@@ -69,9 +69,7 @@ public class HttpHeaderFilter extends AbstractDescribableImpl<HttpHeaderFilter> 
 
     @Override
     public String toString() {
-        return "HttpHeaderFilter{" +
-                "headerName='" + headerName + '\'' +
-                '}';
+        return "HttpHeaderFilter(" + headerName + ')';
     }
 
     @Extension
