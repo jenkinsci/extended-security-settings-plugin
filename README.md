@@ -21,7 +21,7 @@ Several web browsers (e.g., Firefox, Edge, and Chrome) do not support this heade
 This feature adds a configurable list of HTTP header names (case-insensitive) that can be automatically removed from HTTP responses sent to users lacking the *Overall/Read* permission.
 This is useful for hiding the Jenkins and other software versions present in HTTP headers like `X-Jenkins.`
 Various security scanning tools recommend hiding version information advertised this way.
-Note there are numerous other ways to fingerprint Jenkins to deduce which version is running even when this feature is enabled.
+Note that there are numerous other ways to fingerprint Jenkins to deduce which version is running even when this feature is enabled.
 
 This feature is only provided for basic HTTP header removal.
 See also the [Jetty header filter](https://www.eclipse.org/jetty/documentation/current/header-filter.html) which comes with Jetty (the default Jenkins web container) for some additional header filter operations.
