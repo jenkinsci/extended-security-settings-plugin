@@ -33,7 +33,11 @@
         </f:entry>
         <f:entry title="${%httpHeaderFilters}" help="${descriptor.getHelpFile('httpHeaderFilters')}">
             <f:repeatableProperty field="httpHeaderFilters" add="${%addFilter}"
-                                  default="${descriptor.getPropertyType('httpHeaderFilters').itemTypeDescriptorOrDie.defaults}"/>
+                                  default="${descriptor.getPropertyType('httpHeaderFilters').itemTypeDescriptorOrDie.defaults}">
+                <div align="right">
+                    <f:repeatableDeleteButton value="${%removeFilter}"/>
+                </div>
+            </f:repeatableProperty>
         </f:entry>
     </f:section>
 </j:jelly>
