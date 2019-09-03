@@ -30,27 +30,32 @@ import hudson.model.Descriptor;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.DataBoundSetter;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Restricted(NoExternalUse.class)
-public class HttpHeaderFilter extends AbstractDescribableImpl<HttpHeaderFilter> {
+public class HttpHeaderName extends AbstractDescribableImpl<HttpHeaderName> {
 
-    private final String headerName;
+    private String headerName;
 
     @DataBoundConstructor
-    public HttpHeaderFilter(@Nonnull String headerName) {
+    public HttpHeaderName() {
+    }
+
+    HttpHeaderName(@Nonnull String headerName) {
         this.headerName = headerName;
     }
 
-    public String getHeaderName() {
+    @DataBoundSetter
+    public void setHeaderName(@CheckForNull String headerName) {
+        this.headerName = headerName;
+    }
+
+    public @CheckForNull String getHeaderName() {
         return headerName;
     }
 
@@ -58,7 +63,7 @@ public class HttpHeaderFilter extends AbstractDescribableImpl<HttpHeaderFilter> 
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        HttpHeaderFilter that = (HttpHeaderFilter) o;
+        HttpHeaderName that = (HttpHeaderName) o;
         return headerName.equalsIgnoreCase(that.headerName);
     }
 
@@ -74,14 +79,6 @@ public class HttpHeaderFilter extends AbstractDescribableImpl<HttpHeaderFilter> 
 
     @Extension
     @Restricted(NoExternalUse.class)
-    public static class DescriptorImpl extends Descriptor<HttpHeaderFilter> {
-
-        private static final List<String> DEFAULT_HEADERS = Collections.unmodifiableList(Arrays.asList(
-                "X-Jenkins", "X-Hudson"
-        ));
-
-        public Set<HttpHeaderFilter> getDefaults() {
-            return DEFAULT_HEADERS.stream().map(HttpHeaderFilter::new).collect(Collectors.toSet());
-        }
+    public static class DescriptorImpl extends Descriptor<HttpHeaderName> {
     }
 }

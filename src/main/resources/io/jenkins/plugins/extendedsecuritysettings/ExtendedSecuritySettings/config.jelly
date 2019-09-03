@@ -31,9 +31,8 @@
         <f:entry field="enableXssProtectionHeader">
             <f:checkbox title="${%enableXssProtectionHeader}"/>
         </f:entry>
-        <f:entry title="${%httpHeaderFilters}" help="${descriptor.getHelpFile('httpHeaderFilters')}">
-            <f:repeatableProperty field="httpHeaderFilters" add="${%addFilter}"
-                                  default="${descriptor.getPropertyType('httpHeaderFilters').itemTypeDescriptorOrDie.defaults}">
+        <f:entry title="${%httpHeaderNames}" help="${descriptor.getHelpFile('httpHeaderNames')}">
+            <f:repeatableProperty field="httpHeaderNames" add="${%addFilter}">
                 <div align="right">
                     <f:repeatableDeleteButton value="${%removeFilter}"/>
                 </div>

@@ -47,11 +47,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Restricted(NoExternalUse.class)
-public class HttpHeadersFilter implements Filter {
+public class UnauthorizedUserHttpHeaderRestrictionFilter implements Filter {
 
     @Initializer
     public static void initialize() throws ServletException {
-        PluginServletFilter.addFilter(new HttpHeadersFilter());
+        PluginServletFilter.addFilter(new UnauthorizedUserHttpHeaderRestrictionFilter());
     }
 
     @Override
@@ -84,12 +84,14 @@ public class HttpHeadersFilter implements Filter {
     }
 
     private static @Nonnull Set<String> getFilteredHeaderNames() {
-        Set<HttpHeaderFilter> filters = ExtendedSecuritySettings.get().getHttpHeaderFilters();
-        if (filters == null || filters.isEmpty()) {
+        Set<HttpHeaderName> headerNames = ExtendedSecuritySettings.get().getHttpHeaderNames();
+        if (headerNames.isEmpty()) {
             return Collections.emptySet();
         }
-        return filters.stream()
-                .map(filter -> filter.getHeaderName().toLowerCase(Locale.ENGLISH))
+        return headerNames.stream()
+                .map(HttpHeaderName::getHeaderName)
+                .filter(headerName -> headerName != null && !headerName.isEmpty())
+                .map(headerName -> headerName.toLowerCase(Locale.ENGLISH))
                 .collect(Collectors.toSet());
     }
 

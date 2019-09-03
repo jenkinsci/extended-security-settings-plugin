@@ -40,22 +40,22 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class HttpHeadersFilterTest {
+public class UnauthorizedUserHttpHeaderRestrictionFilterTest {
 
     public @Rule JenkinsRule j = new JenkinsRule();
-    private Set<HttpHeaderFilter> previousFilters;
+    private Set<HttpHeaderName> previousHeaderNames;
 
     @Before
     public void setUp() {
         j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
         j.jenkins.setAuthorizationStrategy(new MockAuthorizationStrategy().grant(Jenkins.READ).everywhere().to("admin"));
-        previousFilters = ExtendedSecuritySettings.get().getHttpHeaderFilters();
+        previousHeaderNames = ExtendedSecuritySettings.get().getHttpHeaderNames();
     }
 
     @After
     public void tearDown() {
-        ExtendedSecuritySettings.get().setHttpHeaderFilters(previousFilters);
-        previousFilters = null;
+        ExtendedSecuritySettings.get().setHttpHeaderNames(previousHeaderNames);
+        previousHeaderNames = null;
     }
 
     @Test
@@ -70,8 +70,8 @@ public class HttpHeadersFilterTest {
     }
 
     private static void setHttpHeaderNamesToFilter(String... headerNames) {
-        ExtendedSecuritySettings.get().setHttpHeaderFilters(
-                Arrays.stream(headerNames).map(HttpHeaderFilter::new).collect(Collectors.toSet()));
+        ExtendedSecuritySettings.get().setHttpHeaderNames(
+                Arrays.stream(headerNames).map(HttpHeaderName::new).collect(Collectors.toSet()));
     }
 
 }

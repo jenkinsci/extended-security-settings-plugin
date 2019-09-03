@@ -54,10 +54,19 @@ public class ExtendedSecuritySettings extends GlobalConfiguration {
 
     private boolean enableXssProtectionHeader = true;
 
-    private Set<HttpHeaderFilter> httpHeaderFilters;
+    private Set<HttpHeaderName> httpHeaderNames;
 
     public ExtendedSecuritySettings() {
         load();
+    }
+
+    private Object readResolve() {
+        if (httpHeaderNames == null) {
+            httpHeaderNames = new HashSet<>();
+            httpHeaderNames.add(new HttpHeaderName("X-Jenkins"));
+            httpHeaderNames.add(new HttpHeaderName("X-Hudson"));
+        }
+        return this;
     }
 
     public boolean isDisableLoginAutocomplete() {
@@ -80,13 +89,17 @@ public class ExtendedSecuritySettings extends GlobalConfiguration {
         save();
     }
 
-    public @CheckForNull Set<HttpHeaderFilter> getHttpHeaderFilters() {
-        return httpHeaderFilters;
+    public @Nonnull Set<HttpHeaderName> getHttpHeaderNames() {
+        return httpHeaderNames;
     }
 
     @DataBoundSetter
-    public void setHttpHeaderFilters(@CheckForNull  Set<HttpHeaderFilter> httpHeaderFilters) {
-        this.httpHeaderFilters = httpHeaderFilters == null ? null : new HashSet<>(httpHeaderFilters);
+    public void setHttpHeaderNames(@CheckForNull Set<HttpHeaderName> httpHeaderNames) {
+        Set<HttpHeaderName> updatedHeaders = new HashSet<>();
+        if (httpHeaderNames != null) {
+            updatedHeaders.addAll(httpHeaderNames);
+        }
+        this.httpHeaderNames = updatedHeaders;
         save();
     }
 

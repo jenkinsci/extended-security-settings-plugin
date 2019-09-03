@@ -28,16 +28,16 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class HttpHeaderFilterTest {
+public class HttpHeaderNameTest {
 
     @Test
     public void httpHeaderFiltersShouldBeCaseInsensitive() {
-        assertEquals(new HttpHeaderFilter("X-Cache-Expiration"), new HttpHeaderFilter("x-cache-ExPiRaTiOn"));
+        assertEquals(new HttpHeaderName("X-Cache-Expiration"), new HttpHeaderName("x-cache-ExPiRaTiOn"));
     }
 
     @Test
     public void httpHeaderFilterToStringShouldMaintainInputCase() {
-        assertEquals("HttpHeaderFilter(Length)", new HttpHeaderFilter("Length").toString());
-        assertEquals("HttpHeaderFilter(length)", new HttpHeaderFilter("length").toString());
+        assertEquals("HttpHeaderFilter(Length)", new HttpHeaderName("Length").toString());
+        assertEquals("HttpHeaderFilter(length)", new HttpHeaderName("length").toString());
     }
 }
