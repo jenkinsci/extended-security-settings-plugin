@@ -64,14 +64,23 @@ public class UnauthorizedUserHttpHeaderRestrictionFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        ServletResponse wrappedResponse = response;
+        HttpServletResponseWrapper responseWrapper = null;
         if (isFilterableResponse(response) && !hasOverallRead()) {
             Set<String> headerNames = getFilteredHeaderNames();
             if (!headerNames.isEmpty()) {
-                wrappedResponse = new HeaderRemovingResponseWrapper((HttpServletResponse) response, headerNames);
+                if (response instanceof HttpServletResponseWrapper) {
+                    // reuse existing wrapper to ensure proper handling of AccessDeniedException
+                    responseWrapper = (HttpServletResponseWrapper) response;
+                    ServletResponse wrappedResponse = responseWrapper.getResponse();
+                    if (isFilterableResponse(wrappedResponse)) {
+                        responseWrapper.setResponse(new HeaderRemovingResponseWrapper((HttpServletResponse) wrappedResponse, headerNames));
+                    }
+                } else {
+                    responseWrapper = new HeaderRemovingResponseWrapper((HttpServletResponse) response, headerNames);
+                }
             }
         }
-        chain.doFilter(request, wrappedResponse);
+        chain.doFilter(request, responseWrapper != null ? responseWrapper : response);
     }
 
     private static boolean isFilterableResponse(@Nonnull ServletResponse response) {
