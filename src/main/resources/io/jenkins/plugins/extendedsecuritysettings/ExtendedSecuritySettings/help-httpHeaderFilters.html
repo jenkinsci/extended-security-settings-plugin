@@ -31,4 +31,7 @@
         <li><kbd>X-Jenkins</kbd></li>
         <li><kbd>X-Hudson</kbd></li>
     </ul>
+    Do note that some headers are set by Jetty directly such as <code>Server</code> which cannot be removed through this mechanism.
+    Instead, this must be directly configured in Jetty via <a href="https://www.eclipse.org/jetty/javadoc/9.4.19.v20190610/org/eclipse/jetty/server/HttpConfiguration.html#setSendServerVersion(boolean)"><code>HttpConfiguration.setSendServerVersion()</code></a>.
+    Other servlet containers have their own specific features for disabling the <code>Server</code> header.
 </div>
