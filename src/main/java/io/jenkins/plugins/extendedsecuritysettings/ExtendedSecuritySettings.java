@@ -43,11 +43,7 @@ import java.util.Set;
 public class ExtendedSecuritySettings extends GlobalConfiguration {
 
     public static @Nonnull ExtendedSecuritySettings get() {
-        ExtendedSecuritySettings settings = GlobalConfiguration.all().get(ExtendedSecuritySettings.class);
-        if (settings == null) {
-            throw new IllegalStateException("Jenkins is not available");
-        }
-        return settings;
+        return GlobalConfiguration.all().getInstance(ExtendedSecuritySettings.class);
     }
 
     private boolean disableLoginAutocomplete = true;
