@@ -56,15 +56,6 @@ public class ExtendedSecuritySettings extends GlobalConfiguration {
         load();
     }
 
-    private Object readResolve() {
-        if (httpHeaderNames == null) {
-            httpHeaderNames = new HashSet<>();
-            httpHeaderNames.add(new HttpHeaderName("X-Jenkins"));
-            httpHeaderNames.add(new HttpHeaderName("X-Hudson"));
-        }
-        return this;
-    }
-
     public boolean isDisableLoginAutocomplete() {
         return disableLoginAutocomplete;
     }
