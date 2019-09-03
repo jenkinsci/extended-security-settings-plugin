@@ -34,7 +34,6 @@ import org.kohsuke.stapler.DataBoundSetter;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import java.util.HashSet;
 import java.util.Set;
 
 @Restricted(NoExternalUse.class)
@@ -76,17 +75,13 @@ public class ExtendedSecuritySettings extends GlobalConfiguration {
         save();
     }
 
-    public @Nonnull Set<HttpHeaderName> getHttpHeaderNames() {
+    public @CheckForNull Set<HttpHeaderName> getHttpHeaderNames() {
         return httpHeaderNames;
     }
 
     @DataBoundSetter
     public void setHttpHeaderNames(@CheckForNull Set<HttpHeaderName> httpHeaderNames) {
-        Set<HttpHeaderName> updatedHeaders = new HashSet<>();
-        if (httpHeaderNames != null) {
-            updatedHeaders.addAll(httpHeaderNames);
-        }
-        this.httpHeaderNames = updatedHeaders;
+        this.httpHeaderNames = httpHeaderNames;
         save();
     }
 

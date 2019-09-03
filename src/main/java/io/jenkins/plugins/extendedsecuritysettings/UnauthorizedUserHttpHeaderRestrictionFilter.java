@@ -94,7 +94,7 @@ public class UnauthorizedUserHttpHeaderRestrictionFilter implements Filter {
 
     private static @Nonnull Set<String> getFilteredHeaderNames() {
         Set<HttpHeaderName> headerNames = ExtendedSecuritySettings.get().getHttpHeaderNames();
-        if (headerNames.isEmpty()) {
+        if (headerNames == null || headerNames.isEmpty()) {
             return Collections.emptySet();
         }
         return headerNames.stream()
