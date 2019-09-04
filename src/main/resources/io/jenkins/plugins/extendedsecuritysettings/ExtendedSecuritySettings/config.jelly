@@ -33,9 +33,11 @@
         </f:entry>
         <f:entry title="${%httpHeaderNames}" help="${descriptor.getHelpFile('httpHeaderNames')}">
             <f:repeatableProperty field="httpHeaderNames" add="${%addFilter}">
-                <div align="right">
-                    <f:repeatableDeleteButton value="${%removeFilter}"/>
-                </div>
+                <f:entry title="">
+                    <div align="right">
+                        <f:repeatableDeleteButton value="${%removeFilter}"/>
+                    </div>
+                </f:entry>
             </f:repeatableProperty>
         </f:entry>
     </f:section>
