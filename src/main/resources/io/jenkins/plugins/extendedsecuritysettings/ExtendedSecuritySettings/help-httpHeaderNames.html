@@ -23,7 +23,7 @@
   -->
 
 <div>
-    Configure a set of HTTP header names to filter out from unauthorized responses.
+    Configure a set of restricted HTTP header names to remove from unauthorized users' responses.
     Header names are <em>case-insensitive.</em>
     Users lacking the <i>Overall/Read</i> permission will have these headers removed from HTTP responses.
     Example headers that can be filtered include:
@@ -32,6 +32,6 @@
         <li><kbd>X-Hudson</kbd></li>
     </ul>
     Do note that some headers are set by Jetty directly such as <code>Server</code> which cannot be removed through this mechanism.
-    Instead, this must be directly configured in Jetty via <a href="https://www.eclipse.org/jetty/javadoc/9.4.19.v20190610/org/eclipse/jetty/server/HttpConfiguration.html#setSendServerVersion(boolean)"><code>HttpConfiguration.setSendServerVersion()</code></a>.
-    Other servlet containers have their own specific features for disabling the <code>Server</code> header.
+    This can only be modified using a reverse HTTP proxy.
+    See for example <a href="https://httpd.apache.org/docs/current/mod/mod_headers.html">mod_headers</a> in Apache Web Server.
 </div>

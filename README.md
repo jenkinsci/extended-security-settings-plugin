@@ -24,7 +24,6 @@ Various security scanning tools recommend hiding version information advertised 
 Note that there are numerous other ways to fingerprint Jenkins to deduce which version is running even when this feature is enabled.
 
 This feature is only provided for basic HTTP header removal.
-See also the [Jetty header filter](https://www.eclipse.org/jetty/documentation/current/header-filter.html) which comes with Jetty (the default Jenkins web container) for some additional header filter operations.
 For more complex header rewrite rules, using a reverse proxy such as [Apache](https://httpd.apache.org/) with [mod_headers](https://httpd.apache.org/docs/current/mod/mod_headers.html) is a more complete solution.
 Use of a reverse proxy in front of Jenkins is generally recommended in order to more easily support HTTPS and allow for additional security hardening through the reverse proxy itself.
 Many popular reverse proxies and HTTP load balancers support some form of response filtering, so consult the relevant documentation for those products on how to filter HTTP headers.
