@@ -27,10 +27,12 @@ package io.jenkins.plugins.extendedsecuritysettings;
 import hudson.Extension;
 import jenkins.model.GlobalConfiguration;
 import jenkins.model.GlobalConfigurationCategory;
+import net.sf.json.JSONObject;
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundSetter;
+import org.kohsuke.stapler.StaplerRequest;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
@@ -83,6 +85,13 @@ public class ExtendedSecuritySettings extends GlobalConfiguration {
     public void setHttpHeaderNames(@CheckForNull Set<HttpHeaderName> httpHeaderNames) {
         this.httpHeaderNames = httpHeaderNames;
         save();
+    }
+
+    @Override
+    public boolean configure(StaplerRequest req, JSONObject json) throws FormException {
+        // reset state in case httpHeaderNames were all removed
+        this.httpHeaderNames = null;
+        return super.configure(req, json);
     }
 
     @Override
