@@ -27,6 +27,7 @@ package io.jenkins.plugins.extendedsecuritysettings;
 import hudson.Extension;
 import hudson.model.AbstractDescribableImpl;
 import hudson.model.Descriptor;
+import org.apache.commons.lang.StringUtils;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -64,12 +65,12 @@ public class HttpHeaderName extends AbstractDescribableImpl<HttpHeaderName> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         HttpHeaderName that = (HttpHeaderName) o;
-        return headerName.equalsIgnoreCase(that.headerName);
+        return StringUtils.equalsIgnoreCase(headerName, that.headerName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(headerName.toLowerCase(Locale.ENGLISH));
+        return Objects.hash(StringUtils.lowerCase(headerName, Locale.ENGLISH));
     }
 
     @Override
