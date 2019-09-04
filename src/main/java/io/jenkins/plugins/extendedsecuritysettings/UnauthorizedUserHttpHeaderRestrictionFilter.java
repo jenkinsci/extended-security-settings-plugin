@@ -27,6 +27,7 @@ package io.jenkins.plugins.extendedsecuritysettings;
 import hudson.init.Initializer;
 import hudson.util.PluginServletFilter;
 import jenkins.model.Jenkins;
+import org.apache.commons.lang.StringUtils;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
@@ -99,7 +100,7 @@ public class UnauthorizedUserHttpHeaderRestrictionFilter implements Filter {
         }
         return headerNames.stream()
                 .map(HttpHeaderName::getHeaderName)
-                .filter(headerName -> headerName != null && !headerName.isEmpty())
+                .filter(StringUtils::isNotEmpty)
                 .map(headerName -> headerName.toLowerCase(Locale.ENGLISH))
                 .collect(Collectors.toSet());
     }
