@@ -61,10 +61,17 @@ public class UnauthorizedUserHttpHeaderRestrictionFilterTest {
     @Test
     public void shouldFilterHeadersWhenUnauthorized() throws Exception {
         setHttpHeaderNamesToFilter("x-jenkins", "x-hudson");
+        // anonymous user
         WebResponse response = j.createWebClient().withThrowExceptionOnFailingStatusCode(false).goTo("").getWebResponse();
         assertNull(response.getResponseHeaderValue("X-Jenkins"));
         assertNull(response.getResponseHeaderValue("X-Hudson"));
 
+        // authenticated user without Overall/Read
+        response = j.createWebClient().withThrowExceptionOnFailingStatusCode(false).login("user").goTo("").getWebResponse();
+        assertNull(response.getResponseHeaderValue("X-Jenkins"));
+        assertNull(response.getResponseHeaderValue("X-Hudson"));
+
+        // authenticated user with Overall/Read
         response = j.createWebClient().login("admin").goTo("").getWebResponse();
         assertEquals(Jenkins.VERSION, response.getResponseHeaderValue("x-jenkins"));
     }

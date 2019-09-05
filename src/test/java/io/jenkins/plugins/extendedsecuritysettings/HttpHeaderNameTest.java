@@ -31,12 +31,30 @@ import static org.junit.Assert.*;
 public class HttpHeaderNameTest {
 
     @Test
-    public void httpHeaderFiltersShouldBeCaseInsensitive() {
+    public void httpHeaderNameShouldBeCaseInsensitive() {
         assertEquals(new HttpHeaderName("X-Cache-Expiration"), new HttpHeaderName("x-cache-ExPiRaTiOn"));
+        assertEquals(new HttpHeaderName("X-Cache-Expiration").hashCode(), new HttpHeaderName("x-cache-ExPiRaTiOn").hashCode());
+
+        assertNotEquals(new HttpHeaderName("Length"), new HttpHeaderName("X-Cache-Expiration"));
+        // contract for hashCode: a.equals(b) => a.hashCode() == b.hashCode()
+        // testing that two hashCodes are different is interesting for testing purpose but not 100% true in practice for any value
+        // fine with "fixed" value like this to avoid method returning a hardcoded value.
+        assertNotEquals(new HttpHeaderName("Length").hashCode(), new HttpHeaderName("X-Cache-Expiration").hashCode());
     }
 
     @Test
-    public void httpHeaderFilterToStringShouldMaintainInputCase() {
+    public void httpHeaderNameShouldAcceptNull() {
+        assertEquals(new HttpHeaderName(), new HttpHeaderName());
+        assertEquals(new HttpHeaderName().hashCode(), new HttpHeaderName().hashCode());
+
+        assertNotEquals(new HttpHeaderName(), new HttpHeaderName("Length"));
+        assertNotEquals(new HttpHeaderName().hashCode(), new HttpHeaderName("Length").hashCode());
+        assertNotEquals(new HttpHeaderName("Length"), new HttpHeaderName());
+        assertNotEquals(new HttpHeaderName("Length").hashCode(), new HttpHeaderName().hashCode());
+    }
+
+    @Test
+    public void httpHeaderNameToStringShouldMaintainInputCase() {
         assertEquals("HttpHeaderFilter(Length)", new HttpHeaderName("Length").toString());
         assertEquals("HttpHeaderFilter(length)", new HttpHeaderName("length").toString());
     }
