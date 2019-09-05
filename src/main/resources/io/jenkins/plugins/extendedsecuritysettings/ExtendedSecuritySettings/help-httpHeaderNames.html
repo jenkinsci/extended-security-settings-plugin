@@ -1,8 +1,7 @@
-<?jelly escape-by-default='true'?>
 <!--
   ~ The MIT License
   ~
-  ~ Copyright (c) 2018-2019 CloudBees, Inc.
+  ~ Copyright (c) 2019 CloudBees, Inc.
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -23,22 +22,16 @@
   ~ THE SOFTWARE.
   -->
 
-<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
-    <f:section title="${%configurationSectionTitle}">
-        <f:entry field="disableLoginAutocomplete">
-            <f:checkbox title="${%disableLoginAutocomplete}"/>
-        </f:entry>
-        <f:entry field="enableXssProtectionHeader">
-            <f:checkbox title="${%enableXssProtectionHeader}"/>
-        </f:entry>
-        <f:entry help="${descriptor.getHelpFile('httpHeaderNames')}">
-            <f:repeatableProperty field="httpHeaderNames" header="${%httpHeaderNames}" add="${%addFilter}">
-                <f:block>
-                    <div align="right">
-                        <f:repeatableDeleteButton value="${%removeFilter}"/>
-                    </div>
-                </f:block>
-            </f:repeatableProperty>
-        </f:entry>
-    </f:section>
-</j:jelly>
+<div>
+    Configure a set of restricted HTTP header names to remove from unauthorized users' responses.
+    Header names are <em>case-insensitive.</em>
+    Users lacking the <i>Overall/Read</i> permission will have these headers removed from HTTP responses.
+    Example headers that can be filtered include:
+    <ul>
+        <li><kbd>X-Jenkins</kbd></li>
+        <li><kbd>X-Hudson</kbd></li>
+    </ul>
+    Do note that some headers are set by Jetty directly such as <code>Server</code> which cannot be removed through this mechanism.
+    This can only be modified using a reverse HTTP proxy.
+    See for example <a href="https://httpd.apache.org/docs/current/mod/mod_headers.html">mod_headers</a> in Apache Web Server.
+</div>

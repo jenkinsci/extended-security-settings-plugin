@@ -16,6 +16,18 @@ See [Choosing Secure Passwords](https://www.schneier.com/blog/archives/2014/03/c
 This feature enables the HTTP header `X-XSS-Protection: 1; mode=block` to be sent on all requests which some web browsers intend as a way to automatically block suspected cross-site scripting attacks.
 Several web browsers (e.g., Firefox, Edge, and Chrome) do not support this header.
 
+## Remove HTTP Headers for Unauthorized Users
+
+This feature adds a configurable list of HTTP header names (case-insensitive) that can be automatically removed from HTTP responses sent to users lacking the *Overall/Read* permission.
+This is useful for hiding the Jenkins and other software versions present in HTTP headers like `X-Jenkins.`
+Various security scanning tools recommend hiding version information advertised this way.
+Note that there are numerous other ways to fingerprint Jenkins to deduce which version is running even when this feature is enabled.
+
+This feature is only provided for basic HTTP header removal.
+For more complex header rewrite rules, using a reverse proxy such as [Apache](https://httpd.apache.org/) with [mod_headers](https://httpd.apache.org/docs/current/mod/mod_headers.html) is a more complete solution.
+Use of a reverse proxy in front of Jenkins is generally recommended in order to more easily support HTTPS and allow for additional security hardening through the reverse proxy itself.
+Many popular reverse proxies and HTTP load balancers support some form of response filtering, so consult the relevant documentation for those products on how to filter HTTP headers.
+
 ---
 
 Check out the [wiki page](https://wiki.jenkins.io/display/JENKINS/Extended+Security+Settings+Plugin) for the changelog.

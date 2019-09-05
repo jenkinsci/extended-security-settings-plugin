@@ -27,25 +27,31 @@ package io.jenkins.plugins.extendedsecuritysettings;
 import hudson.Extension;
 import jenkins.model.GlobalConfiguration;
 import jenkins.model.GlobalConfigurationCategory;
+import net.sf.json.JSONObject;
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundSetter;
+import org.kohsuke.stapler.StaplerRequest;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import java.util.Set;
 
 @Restricted(NoExternalUse.class)
 @Extension
 @Symbol("extendedSecuritySettings")
 public class ExtendedSecuritySettings extends GlobalConfiguration {
 
-    public static ExtendedSecuritySettings get() {
-        return GlobalConfiguration.all().get(ExtendedSecuritySettings.class);
+    public static @Nonnull ExtendedSecuritySettings get() {
+        return GlobalConfiguration.all().getInstance(ExtendedSecuritySettings.class);
     }
 
     private boolean disableLoginAutocomplete = true;
 
     private boolean enableXssProtectionHeader = true;
+
+    private Set<HttpHeaderName> httpHeaderNames;
 
     public ExtendedSecuritySettings() {
         load();
@@ -69,6 +75,23 @@ public class ExtendedSecuritySettings extends GlobalConfiguration {
     public void setEnableXssProtectionHeader(boolean enableXssProtectionHeader) {
         this.enableXssProtectionHeader = enableXssProtectionHeader;
         save();
+    }
+
+    public @CheckForNull Set<HttpHeaderName> getHttpHeaderNames() {
+        return httpHeaderNames;
+    }
+
+    @DataBoundSetter
+    public void setHttpHeaderNames(@CheckForNull Set<HttpHeaderName> httpHeaderNames) {
+        this.httpHeaderNames = httpHeaderNames;
+        save();
+    }
+
+    @Override
+    public boolean configure(StaplerRequest req, JSONObject json) throws FormException {
+        // reset state in case httpHeaderNames were all removed
+        this.httpHeaderNames = null;
+        return super.configure(req, json);
     }
 
     @Override
