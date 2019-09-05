@@ -49,7 +49,7 @@
             <url>https://opensource.org/licenses/MIT</url>
         </license>
     </licenses>
-    <url>https://wiki.jenkins.io/display/JENKINS/Extended+Security+Settings+Plugin</url>
+    <url>https://github.com/jenkinsci/extended-security-settings-plugin</url>
     <scm>
         <connection>scm:git:git://github.com/jenkinsci/extended-security-settings-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/extended-security-settings-plugin.git</developerConnection>
