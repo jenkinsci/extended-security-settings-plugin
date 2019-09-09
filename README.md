@@ -28,6 +28,23 @@ For more complex header rewrite rules, using a reverse proxy such as [Apache](ht
 Use of a reverse proxy in front of Jenkins is generally recommended in order to more easily support HTTPS and allow for additional security hardening through the reverse proxy itself.
 Many popular reverse proxies and HTTP load balancers support some form of response filtering, so consult the relevant documentation for those products on how to filter HTTP headers.
 
+General information about [running Jenkins behind Apache](https://wiki.jenkins.io/display/JENKINS/Running+Jenkins+behind+Apache) are provided on the Jenkins wiki.
+To filter out version headers, an Apache config snippet like this can be used:
+
+```
+<IfModule headers>
+    Header unset Server
+    Header unset X-Jenkins
+</IfModule>
+```
+
+Note that Apache will subsequently advertise its own `Server` header which can be further customized via the [`ServerTokens` directive](https://httpd.apache.org/docs/2.4/mod/core.html#servertokens).
+Keep in mind their warning:
+
+> Setting `ServerTokens` to less than `minimal` is not recommended because it makes it more difficult to debug interoperational problems.
+> Also note that disabling the Server: header does nothing at all to make your server more secure.
+> The idea of "security through obscurity" is a myth and leads to a false sense of safety.
+
 ---
 
 Check out the [wiki page](https://wiki.jenkins.io/display/JENKINS/Extended+Security+Settings+Plugin) for the changelog.
