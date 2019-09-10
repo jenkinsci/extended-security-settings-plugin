@@ -69,4 +69,13 @@
       <url>https://repo.jenkins-ci.org/public/</url>
     </pluginRepository>
   </pluginRepositories>
+  <developers>
+    <developer>
+      <id>jvz</id>
+      <name>Matt Sicker</name>
+      <url>https://github.com/jvz</url>
+      <organization>CloudBees</organization>
+      <organizationUrl>https://www.cloudbees.com/</organizationUrl>
+    </developer>
+  </developers>
 </project>
