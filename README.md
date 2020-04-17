@@ -1,6 +1,7 @@
 # Extended Security Settings for Jenkins
 
 [![Build Status](https://ci.jenkins.io/buildStatus/icon?job=Plugins/extended-security-settings-plugin/master)](https://ci.jenkins.io/job/Plugins/job/extended-security-settings-plugin/job/master/)
+[![Jenkins Plugins](https://img.shields.io/jenkins/plugin/v/extended-security-settings)](https://github.com/jenkinsci/extended-security-settings-plugin/releases)
 
 Jenkins plugin to configure Extended Security Settings: a set of additional security settings for Jenkins.
 
@@ -47,4 +48,4 @@ Keep in mind their warning:
 
 ---
 
-Check out the [wiki page](https://wiki.jenkins.io/display/JENKINS/Extended+Security+Settings+Plugin) for the changelog.
+Check out the [releases page](https://github.com/jenkinsci/extended-security-settings-plugin/releases) for the changelog.
