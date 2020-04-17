@@ -1,0 +1,4 @@
+_extends: .github
+version-template: $MAJOR.$MINOR
+tag-template: extended-security-settings-$NEXT_PATCH_VERSION
+name-template: $NEXT_PATCH_VERSION
