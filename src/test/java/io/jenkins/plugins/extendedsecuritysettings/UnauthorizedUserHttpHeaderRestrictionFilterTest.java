@@ -24,7 +24,7 @@
 
 package io.jenkins.plugins.extendedsecuritysettings;
 
-import com.gargoylesoftware.htmlunit.WebResponse;
+import org.htmlunit.WebResponse;
 import jenkins.model.Jenkins;
 import org.junit.After;
 import org.junit.Before;

@@ -23,8 +23,8 @@
  */
 package io.jenkins.plugins.extendedsecuritysettings;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlPasswordInput;
 import hudson.security.HudsonPrivateSecurityRealm;
 import org.junit.Rule;
 import org.junit.Test;
