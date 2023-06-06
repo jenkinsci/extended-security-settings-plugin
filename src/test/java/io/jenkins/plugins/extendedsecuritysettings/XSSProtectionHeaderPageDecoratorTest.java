@@ -24,7 +24,7 @@
 
 package io.jenkins.plugins.extendedsecuritysettings;
 
-import com.gargoylesoftware.htmlunit.WebResponse;
+import org.htmlunit.WebResponse;
 import org.junit.Rule;
 import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
